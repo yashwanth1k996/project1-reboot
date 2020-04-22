@@ -1,0 +1,39 @@
+<!-- <!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        success
+    </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url(https://i.pinimg.com/originals/b1/5f/02/b15f027eddff3f7c88be59a5e724a3a4.jpg);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            height: 100vh;
+        }
+    </style>
+    <meta name="viewport" content="width = device-width, initial-scale = 1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        h1 {
+            text-align: center;
+            font-weight: 1000;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Welcome to the website...{{message}}</h1>
+    {% for a in fields%} {{a}} {% endfor%}
+    <button><a href="/">LOG OUT</a></button>
+</body>
+
+</html> -->
+{%extends "home.html"%} {%block logout%}
+<li><a href="/">LOG OUT</a></li> {%endblock%} {%block body%}
+<h1 style="color: white">Welcome to the website...{{message}}</h1>
+{% for k in fields%} {{a}} {% endfor%} {%endblock%}

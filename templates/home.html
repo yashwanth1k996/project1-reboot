@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>
+        <!-- {% block title%}HOME{% endblock %} -->
+        my web page
+    </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url(https://www.its.ac.id/news/wp-content/uploads/sites/2/2019/04/346199.jpg);
+            background-size: cover;
+            background-repeat: no-repeat;
+            height: 100vh;
+            width: 100%;
+        }
+        
+        #menubar {
+            width: 100%;
+            background-color: rgba(450, 0, 65, 0.4);
+            height: 60px;
+        }
+        
+        #menu {
+            color: white;
+            list-style-type: none;
+            line-height: 40px;
+        }
+        
+        #menu li {
+            display: inline-block;
+        }
+        
+        #menu li a {
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            font-weight: 800;
+        }
+        
+        #menu li a:hover {
+            background-color: black;
+        }
+        
+        h1 {
+            color: brown;
+            text-align: center;
+            text-transform: capitalize;
+            font-weight: 1000;
+        }
+        
+        p {
+            color: white;
+            text-align: center;
+            font-weight: 800;
+        }
+        
+        .names {
+            list-style-type: none;
+            color: white;
+            font-weight: 800;
+        }
+        
+        h3 {
+            color: white;
+        }
+    </style>
+
+</head>
+
+<body>
+    <nav id="menubar">
+        <ul id="menu">
+            <li><a href="/">HOME</a></li> {%block register%}
+            <li><a href="{{url_for('registration')}}">REGISTER</a></li>{%endblock%} {%block login%}
+            <LI><a href="{{url_for('sendtologin')}}">LOG IN</a></LI>{%endblock%} {%block logout%}{%endblock%}
+        </ul>
+    </nav>
+    {% block body%}
+    <h1>WELCOME!!</h1>
+    <P>Please register if you are new to our website. <br> If you have already registered then please log in.</P>
+    {%endblock%}
+</body>
+
+</html>

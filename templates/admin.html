@@ -1,0 +1,8 @@
+{%extends "home.html"%} {% block body%}
+<h3>LIST OF VALID USERS</h3>
+<ul>
+    {% for id in users%}
+    <li class="names">{{id.username}}</li>
+    {% endfor %}
+</ul>
+{%endblock%}

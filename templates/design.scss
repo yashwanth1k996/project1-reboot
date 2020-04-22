@@ -1,0 +1,32 @@
+body {
+    margin: 0;
+    padding: 0;
+    background: url(https://i.pinimg.com/originals/b1/5f/02/b15f027eddff3f7c88be59a5e724a3a4.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 100vh;
+    h1 {
+        background-color: rgba($color: #e04d21, $alpha: 0.4);
+        text-align: center;
+        font-size: 50px;
+        color: white;
+    }
+    div {
+        margin: 40px;
+        .naming {
+            color: white;
+            line-height: 50px;
+            font-size: 20px;
+        }
+        button {
+            font-size: large;
+            font-weight: 500;
+            line-height: 30px;
+        }
+    }
+}
+
+button:hover {
+    background-color: gray;
+}
