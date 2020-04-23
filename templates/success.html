@@ -36,4 +36,11 @@
 {%extends "home.html"%} {%block logout%}
 <li><a href="/">LOG OUT</a></li> {%endblock%} {%block body%}
 <h1 style="color: white">Welcome to the website...{{message}}</h1>
+<form action="{{url_for('search')}}" method="POST">
+    <hr>
+    <input type="text" name="searchword" placeholder="searchword"><br>
+    <hr>
+    <button>Search!!</button>
+    <hr>
+</form>
 {% for k in fields%} {{a}} {% endfor%} {%endblock%}

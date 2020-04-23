@@ -29,7 +29,7 @@ Session(app)
 
 @app.route("/")
 def index():
-    
+
 
     return render_template("home.html")
 
@@ -73,6 +73,31 @@ def login():
         return render_template("registration.html", message="you haven't registered please register first")
 
 
+@app.route("/search")
+def search():
+    req = request.form
+    searchword = req.get(searchword)
+    books = search.get_books(searchword)
+    if (len(books) == 0):
+        return render_template("search_result.html", message="No reults found with the given keyword")
+    else:
+        return render_template("search_result.html", result=books)
+
+
+def get_books(searchword):
+    totalbooks=[]
+    search = "%{}%".format(searchword)
+    books_a = Books.query.filter(Books.author.like(search)).all()
+    books_t = Books.query.filter(Books.title.like(search)).all()
+    books_isbn = Books.query.filter(Books.isbn.like(search)).all()
+    books_year = Books.query.filter(Books.year.like(search)).all()
+    totalbooks.extend(books_a)
+    totalbooks.extend(books_t)
+    totalbooks.extend(books_isbn)
+    totalbooks.extend(books_year)
+    return totalbooks
+
+
 @app.route("/admin")
 def admin():
     valid_users = User.query.all()
@@ -81,9 +106,9 @@ def admin():
 def main():
     db.create_all()
     print("tables created")
-    
+
 
 if __name__ == '__main__':
     with app.app_context():
         main()
-    
+
