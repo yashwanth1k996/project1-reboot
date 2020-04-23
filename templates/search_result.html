@@ -7,14 +7,13 @@
 </head>
 
 <body>
+    hello!!!
 
     <ul>
-        {% for book in books %}
-        <a href="{{ url_for('bookpage', isbn = Book.isbn) }}"> {{book.title}} <br> </a>
-        isbn: {{Book.isbn }} <br>
-        title: {{Book.title }} <br>
-        author: {{Book.author }} <br>
-        year: {{Book.year }}
+        {% for book in result %}
+        <li><a href="{{ url_for('bookpage', isbn = book.isbn) }}"> {{book.title}} </a></li> <br>
         {% endfor %}
     </ul>
+
+
 </body>

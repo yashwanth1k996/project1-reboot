@@ -73,14 +73,17 @@ def login():
         return render_template("registration.html", message="you haven't registered please register first")
 
 
-@app.route("/search")
+@app.route("/search", methods = ["POST"])
 def search():
-    req = request.form
-    searchword = req.get(searchword)
-    books = search.get_books(searchword)
+    # req = request.form
+    searchw = request.form.get("searchword")
+    books = get_books(searchw)
     if (len(books) == 0):
         return render_template("search_result.html", message="No reults found with the given keyword")
     else:
+        print(len(books))
+        for book in books:
+            print(book.title)
         return render_template("search_result.html", result=books)
 
 
@@ -90,13 +93,16 @@ def get_books(searchword):
     books_a = Books.query.filter(Books.author.like(search)).all()
     books_t = Books.query.filter(Books.title.like(search)).all()
     books_isbn = Books.query.filter(Books.isbn.like(search)).all()
-    books_year = Books.query.filter(Books.year.like(search)).all()
+    # books_year = Books.query.filter(Books.year.like(search)).all()
     totalbooks.extend(books_a)
     totalbooks.extend(books_t)
     totalbooks.extend(books_isbn)
-    totalbooks.extend(books_year)
+    # totalbooks.extend(books_year)
     return totalbooks
 
+@app.route("/bookpage/<string:isbn>")
+def bookpage(isbn):
+    return ("working",isbn)
 
 @app.route("/admin")
 def admin():
