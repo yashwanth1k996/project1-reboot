@@ -20,3 +20,14 @@ class Books(db.Model):
     title = db.Column(db.String, nullable = False)
     author=db.Column(db.String, nullable = False)
     year = db.Column(db.Integer, nullable = False)
+
+class ReviewRecord(db.Model):
+    __tablename__ = "records"
+    username = db.Column(db.String, primary_key = True)
+    bookname = db.Column(db.String, nullable = False)
+    rating = db.Column(db.Integer, nullable = False)
+    review = db.Column(db.String, nullable = False)
+    
+
+
+    

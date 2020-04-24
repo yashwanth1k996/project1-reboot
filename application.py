@@ -66,6 +66,7 @@ def login():
     if(User.query.get(name) != None):
         details = User.query.get(name)
         if(password == details.password):
+            session["name"] = name
             return render_template("success.html", message = name)
         else:
             return render_template("login.html", message = "incorrect password")
@@ -78,6 +79,23 @@ def admin():
     valid_users = User.query.all()
     return render_template("admin.html", users = valid_users)
 
+@app.route("/review")
+def review():
+
+    return render_template("review.html")
+
+@app.route("/recordreview")
+def recordreview():
+    review = request.form.get("message")
+    username = session["name"]
+    rating = request.form.get("review")
+    bookname = session["book"]
+    # data = ReviewRecord(username = username, bookname = bookname, rating = rating, review = review)
+    # db.session.add(data)
+    # db.session.commit()
+    
+
+
 def main():
     db.create_all()
     print("tables created")
@@ -86,4 +104,4 @@ def main():
 if __name__ == '__main__':
     with app.app_context():
         main()
-    
+
