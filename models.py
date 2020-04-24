@@ -24,7 +24,7 @@ class Books(db.Model):
 class ReviewRecord(db.Model):
     __tablename__ = "records"
     username = db.Column(db.String, primary_key = True)
-    bookname = db.Column(db.String, nullable = False)
+    title = db.Column(db.String, nullable = False)
     rating = db.Column(db.Integer, nullable = False)
     review = db.Column(db.String, nullable = False)
     

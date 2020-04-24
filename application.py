@@ -5,6 +5,7 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from models import *
+from sqlalchemy import and_
 
 
 
@@ -29,8 +30,6 @@ Session(app)
 
 @app.route("/")
 def index():
-    
-
     return render_template("home.html")
 
 @app.route("/registration", methods=["GET"])
@@ -79,21 +78,33 @@ def admin():
     valid_users = User.query.all()
     return render_template("admin.html", users = valid_users)
 
-@app.route("/review")
-def review():
-
-    return render_template("review.html")
-
-@app.route("/recordreview")
-def recordreview():
-    review = request.form.get("message")
+@app.route("/bookpage/<string:isbn>", methods = ["GET"])
+def bookpage(isbn):
+    all_book = Books.query.filter(Books.isbn == isbn).first_or_404()
+    # print(all_book.isbn, all_book.title, all_book.author, all_book.year, session["username"])
+    session["title"] = all_book.title
     username = session["name"]
+    reviews = ReviewRecord.query.filter(and_(ReviewRecord.title == all_book.title, ReviewRecord.rating > 1)).all()
+    ownreview = ReviewRecord.query.filter(and_(ReviewRecord.title == all_book.title, ReviewRecord.username == username)).all()
+    flag = False
+    if(ReviewRecord.query.filter(and_(ReviewRecord.username == username, ReviewRecord.title == all_book.title)).all() != []):
+        flag = True
+    return render_template("bookpage.html", all_book=all_book, reviews=reviews, ownreview=ownreview, username=username, flag=flag)
+
+@app.route("/recordreview", methods=["POST"])
+def recordreview():
     rating = request.form.get("review")
-    bookname = session["book"]
-    # data = ReviewRecord(username = username, bookname = bookname, rating = rating, review = review)
-    # db.session.add(data)
-    # db.session.commit()
-    
+    review = request.form.get("comment")
+    # print(review)
+    # print(rating)
+    username = session["name"]
+    bookname = session["title"] 
+    data = ReviewRecord(username = username, title = bookname, rating = rating, review = review)
+    print("here")
+    db.session.add(data)
+    print("sess")
+    db.session.commit()
+    return "initial success"
 
 
 def main():
