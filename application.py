@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, request, session
+from flask import Flask, session, render_template, request
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -72,6 +72,12 @@ def login():
     else:
         return render_template("registration.html", message="you haven't registered please register first")
 
+
+@app.route("/bookpage/<string:isbn>", methods = ["GET"])
+def bookpage(isbn):
+    all_book = Books.query.filter(Books.isbn == isbn).first_or_404()
+    print(all_book.isbn, all_book.title, all_book.author, all_book.year, session["username"])
+    return render_template("bookpage.html", isbn = all_book.isbn, title = all_book.title, author = all_book.author, year = all_book.year, user = session["username"])
 
 @app.route("/admin")
 def admin():

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	{% if title %}
+		<title>{{ title }}</title>
+	{% else %}
+		<title>Book</title>
+	{% endif %}
+	<link rel="stylesheet" type="text/css" href="book_style.css">
+</head>
+<body>
+	<div class="whole">
+		<p id = "username">{{ user }}</p><br>
+		<h1>{{title}}</h1><br><br>
+		<p>Author: {{ author }}</p><br>
+		<p>Year Published: {{ year }}</p><br>
+		<p>ISBN Number: {{ isbn }}</p><br>
+		<form action="#">
+			<p>Would you like to submit a rewiew for the book {{ title }}?</p><br>
+			<input type="submit" name="review" value="Submit a Review!">
+		</form><br>
+	</div>
+</body>
+</html>
