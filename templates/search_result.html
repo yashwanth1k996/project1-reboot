@@ -3,15 +3,61 @@
 <head>
     <title>
         Search results
+
     </title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: url(https://www.its.ac.id/news/wp-content/uploads/sites/2/2019/04/346199.jpg);
+            background-size: cover;
+            background-repeat:repeat;
+            height: 100vh;
+            width: 100%;
+
+        }
+
+        #menubar {
+            width: 100%;
+            background-color: rgba(450, 0, 65, 0.4);
+            height: 60px;
+        }
+
+        #menu {
+            color: white;
+            list-style-type: none;
+            line-height: 40px;
+        }
+
+        #menu li {
+            display: inline-block;
+        }
+
+        #menu li a {
+            padding: 10px;
+            text-decoration: none;
+            color: white;
+            display: block;
+            font-weight: 800;
+        }
+
+        #menu li a:hover {
+            background-color: black;
+        }
+    </style>
 </head>
 
 <body>
-    hello!!!
+    <nav id="menubar">
+        <ul id="menu">
+            <li><a href="/">HOME</a></li>
+            <LI><a href="/">LOG OUT</a></LI>
+        </ul>
+    </nav>
 
-    <ul>
+    <ul style="text-align: center;">
         {% for book in result %}
-        <li><a href="{{ url_for('bookpage', isbn = book.isbn) }}"> {{book.title}} </a></li> <br>
+        <li style="color: white; list-style-type: none;"><h3><a href="{{ url_for('bookpage', isbn = book.isbn) }}" style="text-decoration: none; color: white; background-color:rgba(0, 0, 0, 0.6);"> {{book.title}} </a></h3></li> <br>
         {% endfor %}
     </ul>
 

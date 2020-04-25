@@ -34,14 +34,21 @@
 
 </html> -->
 {%extends "home.html"%} {%block logout%}
-<li><a href="/">LOG OUT</a></li> {%endblock%} {%block body%}
+
+<li><a href="/">LOG OUT</a></li> {%endblock%} {%block register%}
+{%endblock%}
+{%block login%}
+{%endblock%}
+{%block body%}
 <h1 style="color: white">Welcome to the website...{{message}}</h1>
+<div style="text-align: center;">
+
 <form action="{{url_for('search')}}" method="POST">
     <hr>
-
-    <input type="text" name="searchword" placeholder="searchword"><br>
+    <input type="text" name="searchword" placeholder="Search for the desired book by author or title or ISBN or year it released. " style="height: 30px; width: 550px; text-align: center;"><br>
     <hr>
-    <button>Search!!</button>
+    <button style="height: 24px; width: 80px;">Search!!</button>
     <hr>
 </form>
+</div>
 {% for k in fields%} {{a}} {% endfor%} {%endblock%}
