@@ -85,13 +85,8 @@
                     form.password.focus();
                     return false;
                 }
-
                 return true;
             };
-            xhr = new XMLHttpRequest();
-            xhr.open("POST", "/elegiblity");
-            xhr.send("name=name")
-
         });
     </script>
 </head>
@@ -104,10 +99,10 @@
             <hr>
             <h3>{{message}}</h3>
             <label class="naming" for="name">Full Name: </label>
-            <input type="text" id="name" autocomplete="off" autofocus placeholder="full name"><br>
+            <input type="text" id="name" name="name" autocomplete="off" autofocus placeholder="full name"><br>
             <hr>
             <label class="naming" for="password">Enter Password: </label>
-            <input type="password" id="password" autocomplete="off" autofocus placeholder="password"><br>
+            <input type="password" id="password" name="password" autocomplete="off" autofocus placeholder="password"><br>
             <hr>
             <!-- <button type="submit">Register</button> -->
             <input type="submit">
