@@ -133,8 +133,9 @@
     </H2>
     <div style="color: white;" class="ownrevew_or_newreview">
         {% if flag %}
-        <hr>
-        <h4>YOUR rating ON THis BOOK: {{ownreview.rating}}</h4>
+        <hr> {% for y in ownreview %}
+        <h4>YOUR rating ON THis BOOK: {{y.rating}}</h4>
+        {% endfor %}
         <hr>
         <h4>YOUR REVIEW ON THE BOOK:</h4>
         {% for y in ownreview %}

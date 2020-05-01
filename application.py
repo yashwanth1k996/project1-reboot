@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from models import *
 from sqlalchemy import and_
+from user import *
 
 
 
@@ -48,7 +49,7 @@ def elegiblity():
         # session[name].append(name)
         db.session.add(details)
         db.session.commit()
-        return render_template("success.html", message = "Successfully Registered")
+        return render_template("login.html", message = "Successfully Registered, please login to explore")
     else:
         return render_template("login.html", message= "please login, you have already registered")
 
@@ -86,25 +87,22 @@ def bookpage(isbn):
     username = session["name"]
     reviews = ReviewRecord.query.filter(and_(ReviewRecord.title == all_book.title, ReviewRecord.rating > 1)).all()
     ownreview = ReviewRecord.query.filter(and_(ReviewRecord.title == all_book.title, ReviewRecord.username == username)).all()
-    flag = False
-    if(ReviewRecord.query.filter(and_(ReviewRecord.username == username, ReviewRecord.title == all_book.title)).all() != []):
-        flag = True
+    # flag = False
+    # if(ReviewRecord.query.filter(and_(ReviewRecord.username == username, ReviewRecord.title == all_book.title)).all() != []):
+    #     flag = True
+    flag = given_review(username, all_book.title)
     return render_template("bookpage.html", all_book=all_book, reviews=reviews, ownreview=ownreview, username=username, flag=flag)
 
 @app.route("/recordreview", methods=["POST"])
 def recordreview():
     rating = request.form.get("review")
     review = request.form.get("comment")
-    # print(review)
-    # print(rating)
     username = session["name"]
     bookname = session["title"] 
     data = ReviewRecord(username = username, title = bookname, rating = rating, review = review)
-    print("here")
     db.session.add(data)
-    print("sess")
     db.session.commit()
-    return "initial success"
+    return True
 
 
 def main():
