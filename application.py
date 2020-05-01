@@ -92,14 +92,6 @@ def search():
 def get_books(searchword):
     totalbooks=[]
     search = "%{}%".format(searchword)
-    # books_a = Books.query.filter(Books.author.like(search)).all()
-    # books_t = Books.query.filter(Books.title.like(search)).all()
-    # books_isbn = Books.query.filter(Books.isbn.like(search)).all()
-    # books_year = Books.query.filter(Books.year.like(search)).all()
-    # totalbooks.extend(books_a)
-    # totalbooks.extend(books_t)
-    # totalbooks.extend(books_isbn)
-    # totalbooks.extend(books_year)
     totalbooks = Books.query.filter(or_(Books.isbn.like(search), Books.title.like(search), Books.author.like(search))).all()
     return totalbooks
 
