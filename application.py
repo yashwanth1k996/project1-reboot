@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, session, render_template, request, session
+from flask import Flask, session, render_template, request, session, json, jsonify, url_for,redirect
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -67,26 +67,39 @@ def login():
     password = request.form.get("password")
     if(User.query.get(name) != None):
         details = User.query.get(name)
-        if(password == details.password):
-            return render_template("success.html", message = name)
+        if (password == details.password):
+            return redirect(url_for("search"))
+
+            # return render_template("success.html", message = name)
         else:
             return render_template("login.html", message = "incorrect password")
     else:
         return render_template("registration.html", message="you haven't registered please register first")
 
 
-@app.route("/search", methods = ["POST"])
+# @app.route("/api/search/<data>")
+@app.route("/api/search", methods=["POST"])
+def api_search():
+
+    content = request.get_json(force=True)
+    searchw = content["search"]
+    search = "%{}%".format(searchw)
+    totalbooks = Books.query.filter(or_(Books.isbn.like(
+        search), Books.title.like(search), Books.author.like(search))).all()
+    search_results = []
+    for result in totalbooks:
+        details = {"ISBN": result.isbn, "title": result.title}
+        search_results.append(details)
+    print(search_results)
+    return jsonify({'success': True, 'result' :search_results})
+
+
+
+
+@app.route("/search", methods = ["GET"])
 def search():
-    # req = request.form
-    searchw = request.form.get("searchword")
-    books = get_books(searchw)
-    if (len(books) == 0):
-        return render_template("search_result.html", message="No reults found with the given keyword")
-    else:
-        print(len(books))
-        for book in books:
-            print(book.title)
-        return render_template("search_result.html", result=books)
+
+    return render_template("success.html")
 
 
 def get_books(searchword):

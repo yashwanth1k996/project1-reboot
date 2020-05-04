@@ -45,6 +45,41 @@
             background-color: black;
         }
     </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('form').onsubmit = () => {
+                const request = new XMLHttpRequest();
+                const review = document.getElementById('review').value;
+                const rating = document.getElementById('rating').value;
+                request.open('POST', '/api/review?isbn={{ISBN}}');
+
+                request.onload = () => {
+                    const data = JSON.parse(request.responseText);
+
+                    if (data.success) {
+                        document.getElementById('username').innerHTML = `${data.name}`;
+                        document.getElementById('image').innerHTML = `${data.image}`;
+                        document.getElementById('Name').innerHTML = `Book Name : ${data.Name}`;
+                        document.getElementById('Author').innerHTML = `Author : ${data.Author}`;
+                        document.getElementById('ISBN').innerHTML = `ISBN : ${data.ISBN}`;
+                        document.getElementById('Year').innerHTML = `Year of Publication : ${data.Year}`;
+                        document.getElementById('overall').innerHTML = `Average Rating : ${data.rating}`;
+                        document.getElementById('count').innerHTML = `Number of Reviewers : ${data.count}`;
+                        document.getElementById('button').innerHTML = `${data.Submit}`;
+                        document.getElementById('number').innerHTML = `Your Rating is ${data.rating_one}/5`;
+                        document.getElementById('matter').innerHTML = `${data.Review}`;
+                    } else {
+                        document.getElementById('list').innerHTML = '';
+                    }
+                }
+                // const data = new FormData();
+                // data.append('review', review);
+                // data.append('rating', rating)
+                request.send(JSON.stringify({ "review": review, "rating": rating }));
+                return false;
+            }
+        });
+    </script>
 </head>
 
 <body>

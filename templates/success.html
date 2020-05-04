@@ -34,7 +34,39 @@
 
 </html> -->
 {%extends "home.html"%} {%block logout%}
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('form').onsubmit = () => {
+            const request = new XMLHttpRequest();
+            const search = document.getElementById('search').value;
 
+            request.open('POST', '/api/search');
+
+            request.onload = () => {
+                const data = JSON.parse(request.responseText);
+
+                 if (data.success) {
+                    alert("hello chetika")
+                    if (data.result.length > 0) {
+                        alert(data.result["title"])
+                        var matter = "";
+                        data.result.forEach(result_happy  => {
+                            matter += "<li> <a href = '/bookpage/" + result_happy["ISBN"] + "'>" + result_happy["title"] + "</li>"
+                            // matter += "<tr> <td> <a href='/book?isbn=" + result["ISBN"] + "'>" + result["ISBN"] + "</a> </td> <td>" + result["title"] + "</td> </tr>";
+                        });
+                        document.getElementById("body_results").innerHTML = matter
+                    }
+                }
+            }
+            // const data = new FormData();
+            // data.append('review', review);
+            // data.append('rating', rating)
+            request.send(JSON.stringify({ "search": search }));
+            return false;
+        }
+    });
+
+</script>
 <li><a href="/">LOG OUT</a></li> {%endblock%} {%block register%}
 {%endblock%}
 {%block login%}
@@ -43,12 +75,18 @@
 <h1 style="color: white">Welcome to the website...{{message}}</h1>
 <div style="text-align: center;">
 
-<form action="{{url_for('search')}}" method="POST">
+<form id = "form" method="POST">
     <hr>
-    <input type="text" name="searchword" placeholder="Search for the desired book by author or title or ISBN or year it released. " style="height: 30px; width: 550px; text-align: center;"><br>
+    <input id = "search" type="text" name="searchword" placeholder="Search for the desired book by author or title or ISBN or year it released. " style="height: 30px; width: 550px; text-align: center;"><br>
     <hr>
     <button style="height: 24px; width: 80px;">Search!!</button>
     <hr>
 </form>
+
+<ul id = "body_results" style="text-align: center;">
+
+</ul>
+
+
 </div>
 {% for k in fields%} {{a}} {% endfor%} {%endblock%}
