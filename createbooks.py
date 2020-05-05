@@ -11,7 +11,7 @@ from models import *
 from datetime import datetime
 
 app = Flask(__name__)
-app.config["SQLALCHEMY_DATABASE_URI"]="postgres://zuaxfyzpsshpxt:e2270c239a8629ea70aa2858d25e63a8925ca354da9a6e50b229db2a67781d47@ec2-50-17-178-87.compute-1.amazonaws.com:5432/da0esqb9t1i664"
+app.config["SQLALCHEMY_DATABASE_URI"] = "postgres://yainmriqptbdia:ef9eb65b36e26462fab4fa3190ea7982f65a5b450e7be9789b4ac2f507b8f634@ec2-54-81-37-115.compute-1.amazonaws.com:5432/d226orf1s2l1ac"
 
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 db.init_app(app)
@@ -23,7 +23,7 @@ def main():
     r = csv.reader(file)
     # print("here")
     for str1 in r:
-        details = Books(isbn=str1[0], title=str1[1], author=str1[2], year=int(str1[3]))
+        details = Books(isbn=str1[0], title=str1[1], author=str1[2], year=str1[3])
         db.session.add(details)
         db.session.commit()
 
